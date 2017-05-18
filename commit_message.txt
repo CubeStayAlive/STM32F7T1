@@ -1,1 +1,1 @@
-add CDC
+Activate SWD in CubeMX
