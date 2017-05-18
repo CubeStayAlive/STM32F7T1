@@ -1,7 +1,8 @@
 /**
   ******************************************************************************
-  * File Name          : freertos.c
-  * Description        : Code for freertos applications
+  * @file           : usbd_conf.h
+  * @version        : v1.0_Cube
+  * @brief          : Header for usbd_conf file.
   ******************************************************************************
   * This notice applies to any and all portions of this file
   * that are not between comment pairs USER CODE BEGIN and
@@ -44,93 +45,144 @@
   * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
-  */
-
+*/
+/* Define to prevent recursive inclusion -------------------------------------*/
+#ifndef __USBD_CONF__H__
+#define __USBD_CONF__H__
+#ifdef __cplusplus
+ extern "C" {
+#endif
 /* Includes ------------------------------------------------------------------*/
-#include "FreeRTOS.h"
-#include "task.h"
-#include "cmsis_os.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "stm32f7xx.h"
+#include "stm32f7xx_hal.h"
 
-/* USER CODE BEGIN Includes */     
-#include "intersect/DefaultTask.h"
-/* USER CODE END Includes */
+/** @addtogroup USBD_OTG_DRIVER
+  * @{
+  */
+  
+/** @defgroup USBD_CONF
+  * @brief usb otg low level driver configuration file
+  * @{
+  */ 
 
-/* Variables -----------------------------------------------------------------*/
-osThreadId defaultTaskHandle;
-osThreadId TNBlinkyHandle;
+/** @defgroup USBD_CONF_Exported_Defines
+  * @{
+  */ 
 
-/* USER CODE BEGIN Variables */
+/*---------- -----------*/
+#define USBD_MAX_NUM_INTERFACES     1
+/*---------- -----------*/
+#define USBD_MAX_NUM_CONFIGURATION     1
+/*---------- -----------*/
+#define USBD_MAX_STR_DESC_SIZ     512
+/*---------- -----------*/
+#define USBD_SUPPORT_USER_STRING     0
+/*---------- -----------*/
+#define USBD_DEBUG_LEVEL     0
+/*---------- -----------*/
+#define USBD_LPM_ENABLED     1
+/*---------- -----------*/
+#define USBD_SELF_POWERED     1
+/*---------- -----------*/
+#define USBD_CDC_INTERVAL     1000
 
-/* USER CODE END Variables */
+/****************************************/
+/* #define for FS and HS identification */
+#define DEVICE_FS 		0
+#define DEVICE_HS 		1
 
-/* Function prototypes -------------------------------------------------------*/
-void StartDefaultTask(void const * argument);
-extern void ThreadBlinky(void const * argument);
+/** @defgroup USBD_Exported_Macros
+  * @{
+  */ 
 
-extern void MX_USB_DEVICE_Init(void);
-void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
+ /* Memory management macros */   
+#define USBD_malloc               malloc
+#define USBD_free                 free
+#define USBD_memset               memset
+#define USBD_memcpy               memcpy
 
-/* USER CODE BEGIN FunctionPrototypes */
+#define USBD_Delay   HAL_Delay
+    
+ /* DEBUG macros */  
 
-/* USER CODE END FunctionPrototypes */
+#if (USBD_DEBUG_LEVEL > 0)
+#define  USBD_UsrLog(...)   printf(__VA_ARGS__);\
+                            printf("\n");
+#else
+#define USBD_UsrLog(...)   
+#endif 
+                            
+                            
+#if (USBD_DEBUG_LEVEL > 1)
 
-/* Hook prototypes */
+#define  USBD_ErrLog(...)   printf("ERROR: ") ;\
+                            printf(__VA_ARGS__);\
+                            printf("\n");
+#else
+#define USBD_ErrLog(...)   
+#endif 
+                            
+                            
+#if (USBD_DEBUG_LEVEL > 2)                         
+#define  USBD_DbgLog(...)   printf("DEBUG : ") ;\
+                            printf(__VA_ARGS__);\
+                            printf("\n");
+#else
+#define USBD_DbgLog(...)                         
+#endif
+                            
+/**
+  * @}
+  */ 
+ 
+    
+    
+/**
+  * @}
+  */ 
 
-/* Init FreeRTOS */
+/** @defgroup USBD_CONF_Exported_Types
+  * @{
+  */ 
+/**
+  * @}
+  */ 
 
-void MX_FREERTOS_Init(void) {
-  /* USER CODE BEGIN Init */
-       
-  /* USER CODE END Init */
+/** @defgroup USBD_CONF_Exported_Macros
+  * @{
+  */ 
+/**
+  * @}
+  */ 
 
-  /* USER CODE BEGIN RTOS_MUTEX */
-  /* add mutexes, ... */
-  /* USER CODE END RTOS_MUTEX */
+/** @defgroup USBD_CONF_Exported_Variables
+  * @{
+  */ 
+/**
+  * @}
+  */ 
 
-  /* USER CODE BEGIN RTOS_SEMAPHORES */
-  /* add semaphores, ... */
-  /* USER CODE END RTOS_SEMAPHORES */
-
-  /* USER CODE BEGIN RTOS_TIMERS */
-  /* start timers, add new ones, ... */
-  /* USER CODE END RTOS_TIMERS */
-
-  /* Create the thread(s) */
-  /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
-  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
-
-  /* definition and creation of TNBlinky */
-  osThreadDef(TNBlinky, ThreadBlinky, osPriorityIdle, 0, 128);
-  TNBlinkyHandle = osThreadCreate(osThread(TNBlinky), NULL);
-
-  /* USER CODE BEGIN RTOS_THREADS */
-  /* add threads, ... */
-  /* USER CODE END RTOS_THREADS */
-
-  /* USER CODE BEGIN RTOS_QUEUES */
-  /* add queues, ... */
-  /* USER CODE END RTOS_QUEUES */
+/** @defgroup USBD_CONF_Exported_FunctionsPrototype
+  * @{
+  */ 
+/**
+  * @}
+  */ 
+#ifdef __cplusplus
 }
+#endif
 
-/* StartDefaultTask function */
-void StartDefaultTask(void const * argument)
-{
-  /* init code for USB_DEVICE */
-  MX_USB_DEVICE_Init();
+#endif /*__USBD_CONF__H__*/
 
-  /* USER CODE BEGIN StartDefaultTask */
-  DefaultTaskEntry();
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
-  /* USER CODE END StartDefaultTask */
-}
+/**
+  * @}
+  */ 
 
-/* USER CODE BEGIN Application */
-     
-/* USER CODE END Application */
-
+/**
+  * @}
+  */ 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+
