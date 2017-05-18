@@ -1,1 +1,1 @@
-Activate SWD in CubeMX
+Add SWO to SWD in CubeMX
