@@ -1,6 +1,6 @@
 git remote remove origin
 git config --remove-section branch.master
-git remote add origin https://CubeStayAlive@github.com/CubeStayAlive/STM32F4T1.git
+git remote add origin https://CubeStayAlive@github.com/CubeStayAlive/STM32F7T1.git
 git config branch.master.remote origin
 git config branch.master.merge refs/heads/master 
 #
