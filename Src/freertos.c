@@ -59,6 +59,7 @@
 osThreadId defaultTaskHandle;
 osThreadId TNBlinkyHandle;
 osThreadId TNDFSDMHandle;
+osThreadId TNCDCHandle;
 
 /* USER CODE BEGIN Variables */
 
@@ -68,6 +69,7 @@ osThreadId TNDFSDMHandle;
 void StartDefaultTask(void const * argument);
 extern void ThreadBlinky(void const * argument);
 extern void ThreadDFSDM(void const * argument);
+extern void ThreadCDC(void const * argument);
 
 extern void MX_USB_DEVICE_Init(void);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
@@ -109,6 +111,10 @@ void MX_FREERTOS_Init(void) {
   /* definition and creation of TNDFSDM */
   osThreadDef(TNDFSDM, ThreadDFSDM, osPriorityIdle, 0, 128);
   TNDFSDMHandle = osThreadCreate(osThread(TNDFSDM), NULL);
+
+  /* definition and creation of TNCDC */
+  osThreadDef(TNCDC, ThreadCDC, osPriorityIdle, 0, 128);
+  TNCDCHandle = osThreadCreate(osThread(TNCDC), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
