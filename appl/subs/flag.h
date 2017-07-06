@@ -11,12 +11,16 @@
 #include "main.h"
 
 #define FLAG_A_TOGGLE HAL_GPIO_TogglePin(FLAG_A_GPIO_Port,FLAG_A_Pin)
+#define FLAG_A_SET    HAL_GPIO_WritePin(FLAG_A_GPIO_Port,FLAG_A_Pin, GPIO_PIN_SET)
+#define FLAG_A_CLR    HAL_GPIO_WritePin(FLAG_A_GPIO_Port,FLAG_A_Pin, GPIO_PIN_RESET)
 #define FLAG_B_TOGGLE HAL_GPIO_TogglePin(FLAG_B_GPIO_Port,FLAG_B_Pin)
 
 
-#define FLAG_LOOP_PWM ;
-#define FLAG_TIM1_UPDATE ;
-#define FLAG_TIM3_UPDATE FLAG_B_TOGGLE
-#define FLAG_TIM1_OC4    FLAG_A_TOGGLE;
+#define FLAG_LOOP_PWM 				;
+#define FLAG_TIM1_UPDATE      		FLAG_B_TOGGLE;
+#define FLAG_TIM3_UPDATE 			;
+#define FLAG_TIM1_OC4    			;
+#define FLAG_CONTROLLER_START 		FLAG_A_CLR
+#define FLAG_CONTROLLER_END  		FLAG_A_SET
 
 #endif /* SUBS_FLAG_H_ */
