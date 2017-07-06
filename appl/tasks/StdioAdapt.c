@@ -13,25 +13,25 @@
 
 //extern int __io_putchar(int ch) __attribute__((weak));
 //extern int __io_getchar(void) __attribute__((weak));
-
-int __io_putchar(int ch)
-{
-	int i = 9;
-	i = i * 3;
-	return (0);
-}
-
-int __sf_putc_r(int ch)
-{
-	int i = 9;
-	i = i * 3;
-	return (0);
-}
-
-int __io_getchar(void)
-{
-	return (EOF);
-}
+//
+//int __io_putchar(int ch)
+//{
+//	int i = 9;
+//	i = i * 3;
+//	return (0);
+//}
+//
+//int __sf_putc_r(int ch)
+//{
+//	int i = 9;
+//	i = i * 3;
+//	return (0);
+//}
+//
+//int __io_getchar(void)
+//{
+//	return (EOF);
+//}
 /*
  write
  Write a character to a file. `libc' subroutines will use this system routine for output to all files, including stdout

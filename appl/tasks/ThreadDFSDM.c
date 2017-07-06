@@ -55,25 +55,10 @@ void ThreadDFSDM(void const * argument)
 	{
 		Error_Handler();
 	}
-	result = HAL_TIM_PWM_Start( &htim1, TIM_CHANNEL_1);
-	if (result != HAL_OK)
-	{
-		Error_Handler();
-	}
-	result = HAL_TIM_PWM_Start( &htim1, TIM_CHANNEL_2);
-	if (result != HAL_OK)
-	{
-		Error_Handler();
-	}
-	result = HAL_TIM_PWM_Start( &htim1, TIM_CHANNEL_3);
-	if (result != HAL_OK)
-	{
-		Error_Handler();
-	}
-
 	while (1)
 	{
 		uint32_t channel;
+
 		filter0_awd = HAL_DFSDM_ChannelGetAwdValue(&hdfsdm1_channel0);
 		filter0_reg = HAL_DFSDM_FilterGetRegularValue( &hdfsdm1_filter0, &channel );
 		sign_extend(&filter0_reg);
@@ -90,7 +75,7 @@ void ThreadDFSDM(void const * argument)
 		filter3_reg = HAL_DFSDM_FilterGetRegularValue( &hdfsdm1_filter3, &channel );
 		sign_extend(&filter3_reg);
 
-		vTaskDelay(500);
+		vTaskDelay(50);
 	}
 }
 

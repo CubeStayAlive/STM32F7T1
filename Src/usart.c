@@ -1,7 +1,8 @@
 /**
   ******************************************************************************
-  * File Name          : freertos.c
-  * Description        : Code for freertos applications
+  * File Name          : USART.c
+  * Description        : This file provides code for the configuration
+  *                      of the USART instances.
   ******************************************************************************
   * This notice applies to any and all portions of this file
   * that are not between comment pairs USER CODE BEGIN and
@@ -47,108 +48,100 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "FreeRTOS.h"
-#include "task.h"
-#include "cmsis_os.h"
+#include "usart.h"
 
-/* USER CODE BEGIN Includes */     
-#include "intersect/DefaultTask.h"
-/* USER CODE END Includes */
+#include "gpio.h"
 
-/* Variables -----------------------------------------------------------------*/
-osThreadId defaultTaskHandle;
-osThreadId TNBlinkyHandle;
-osThreadId TNDFSDMHandle;
-osThreadId TNCDCHandle;
-osThreadId TNPWMHandle;
+/* USER CODE BEGIN 0 */
 
-/* USER CODE BEGIN Variables */
+/* USER CODE END 0 */
 
-/* USER CODE END Variables */
+UART_HandleTypeDef huart3;
 
-/* Function prototypes -------------------------------------------------------*/
-void StartDefaultTask(void const * argument);
-extern void ThreadBlinky(void const * argument);
-extern void ThreadDFSDM(void const * argument);
-extern void ThreadCDC(void const * argument);
-extern void ThreadPWM(void const * argument);
+/* USART3 init function */
 
-extern void MX_USB_DEVICE_Init(void);
-void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
-
-/* USER CODE BEGIN FunctionPrototypes */
-
-/* USER CODE END FunctionPrototypes */
-
-/* Hook prototypes */
-
-/* Init FreeRTOS */
-
-void MX_FREERTOS_Init(void) {
-  /* USER CODE BEGIN Init */
-       
-  /* USER CODE END Init */
-
-  /* USER CODE BEGIN RTOS_MUTEX */
-  /* add mutexes, ... */
-  /* USER CODE END RTOS_MUTEX */
-
-  /* USER CODE BEGIN RTOS_SEMAPHORES */
-  /* add semaphores, ... */
-  /* USER CODE END RTOS_SEMAPHORES */
-
-  /* USER CODE BEGIN RTOS_TIMERS */
-  /* start timers, add new ones, ... */
-  /* USER CODE END RTOS_TIMERS */
-
-  /* Create the thread(s) */
-  /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityIdle, 0, 128);
-  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
-
-  /* definition and creation of TNBlinky */
-  osThreadDef(TNBlinky, ThreadBlinky, osPriorityNormal, 0, 128);
-  TNBlinkyHandle = osThreadCreate(osThread(TNBlinky), NULL);
-
-  /* definition and creation of TNDFSDM */
-  osThreadDef(TNDFSDM, ThreadDFSDM, osPriorityNormal, 0, 128);
-  TNDFSDMHandle = osThreadCreate(osThread(TNDFSDM), NULL);
-
-  /* definition and creation of TNCDC */
-  osThreadDef(TNCDC, ThreadCDC, osPriorityNormal, 0, 128);
-  TNCDCHandle = osThreadCreate(osThread(TNCDC), NULL);
-
-  /* definition and creation of TNPWM */
-  osThreadDef(TNPWM, ThreadPWM, osPriorityNormal, 0, 128);
-  TNPWMHandle = osThreadCreate(osThread(TNPWM), NULL);
-
-  /* USER CODE BEGIN RTOS_THREADS */
-  /* add threads, ... */
-  /* USER CODE END RTOS_THREADS */
-
-  /* USER CODE BEGIN RTOS_QUEUES */
-  /* add queues, ... */
-  /* USER CODE END RTOS_QUEUES */
-}
-
-/* StartDefaultTask function */
-void StartDefaultTask(void const * argument)
+void MX_USART3_UART_Init(void)
 {
-  /* init code for USB_DEVICE */
-  MX_USB_DEVICE_Init();
 
-  /* USER CODE BEGIN StartDefaultTask */
-  DefaultTaskEntry();
-  /* Infinite loop */
-  for(;;)
+  huart3.Instance = USART3;
+  huart3.Init.BaudRate = 115200;
+  huart3.Init.WordLength = UART_WORDLENGTH_7B;
+  huart3.Init.StopBits = UART_STOPBITS_1;
+  huart3.Init.Parity = UART_PARITY_NONE;
+  huart3.Init.Mode = UART_MODE_TX_RX;
+  huart3.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart3.Init.OverSampling = UART_OVERSAMPLING_16;
+  huart3.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+  huart3.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+  if (HAL_UART_Init(&huart3) != HAL_OK)
   {
-    osDelay(1);
+    _Error_Handler(__FILE__, __LINE__);
   }
-  /* USER CODE END StartDefaultTask */
+
 }
 
-/* USER CODE BEGIN Application */
-     
-/* USER CODE END Application */
+void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
+{
+
+  GPIO_InitTypeDef GPIO_InitStruct;
+  if(uartHandle->Instance==USART3)
+  {
+  /* USER CODE BEGIN USART3_MspInit 0 */
+
+  /* USER CODE END USART3_MspInit 0 */
+    /* Peripheral clock enable */
+    __HAL_RCC_USART3_CLK_ENABLE();
+  
+    /**USART3 GPIO Configuration    
+    PD8     ------> USART3_TX
+    PD9     ------> USART3_RX 
+    */
+    GPIO_InitStruct.Pin = STLK_RX_Pin|STLK_TX_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_PULLUP;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF7_USART3;
+    HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+  /* USER CODE BEGIN USART3_MspInit 1 */
+
+  /* USER CODE END USART3_MspInit 1 */
+  }
+}
+
+void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
+{
+
+  if(uartHandle->Instance==USART3)
+  {
+  /* USER CODE BEGIN USART3_MspDeInit 0 */
+
+  /* USER CODE END USART3_MspDeInit 0 */
+    /* Peripheral clock disable */
+    __HAL_RCC_USART3_CLK_DISABLE();
+  
+    /**USART3 GPIO Configuration    
+    PD8     ------> USART3_TX
+    PD9     ------> USART3_RX 
+    */
+    HAL_GPIO_DeInit(GPIOD, STLK_RX_Pin|STLK_TX_Pin);
+
+  /* USER CODE BEGIN USART3_MspDeInit 1 */
+
+  /* USER CODE END USART3_MspDeInit 1 */
+  }
+} 
+
+/* USER CODE BEGIN 1 */
+
+/* USER CODE END 1 */
+
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

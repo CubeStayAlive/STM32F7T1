@@ -56,6 +56,10 @@
 
 /* Private define ------------------------------------------------------------*/
 
+#define FLAG_A_Pin GPIO_PIN_5
+#define FLAG_A_GPIO_Port GPIOE
+#define FLAG_B_Pin GPIO_PIN_6
+#define FLAG_B_GPIO_Port GPIOE
 #define USER_Btn_Pin GPIO_PIN_13
 #define USER_Btn_GPIO_Port GPIOC
 #define MCO_Pin GPIO_PIN_0
@@ -88,8 +92,6 @@
 #define USB_SOF_GPIO_Port GPIOA
 #define USB_VBUS_Pin GPIO_PIN_9
 #define USB_VBUS_GPIO_Port GPIOA
-#define USB_ID_Pin GPIO_PIN_10
-#define USB_ID_GPIO_Port GPIOA
 #define USB_DM_Pin GPIO_PIN_11
 #define USB_DM_GPIO_Port GPIOA
 #define USB_DP_Pin GPIO_PIN_12
