@@ -12,8 +12,7 @@
 #include "tim.h"
 #include "subs/flag.h"
 #include "intersect/event.h"
-#include <math.h>
-
+#include "subs/controller.h"
 
 void ThreadPWM(void const * argument)
 {
@@ -65,7 +64,8 @@ void ThreadPWM(void const * argument)
 
 void interrupt_tim1_update(TIM_HandleTypeDef *htim)
 {
-	FLAG_TIM1_UPDATE;
+	FLAG_TIM1_UPDATE
+	;
 }
 
 Controller_para cpara;
@@ -76,33 +76,19 @@ typedef double mt;
 mt phi = 0.0;
 mt rot = .0001;
 
-
 void interrupt_tim3_update(TIM_HandleTypeDef *htim)
 {
 	FLAG_CONTROLLER_START;
 	{
-		phi += rot;
-		if (phi > (2.0 * M_PI))
-			phi -= (2.0 * M_PI);
-		mt phase;
-		int pwm;
-		phase = sin(phi);
-		pwm = (int) (phase * 250.0 + 250.0);
-		__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, pwm);
+		Controller_calc(&cin, &cout);
 
-		phase = sin(phi+(M_PI*2.0/3.0));
-		pwm = (int) (phase * 250.0 + 250.0);
-		__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, pwm);
-
-		phase = sin(phi+(M_PI*4.0/3.0));
-		pwm = (int) (phase * 250.0 + 250.0);
-		__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, pwm);
+		__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, (int)cout.l1);
+		__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, (int)cout.l2);
+		__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, (int)cout.l3);
 	}
 	FLAG_CONTROLLER_END;
 	FLAG_TIM3_UPDATE;
 }
-
-
 
 // overwrite weak
 void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)
@@ -110,8 +96,7 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	if (htim->Instance == TIM1)
 	{
-		FLAG_TIM1_OC4
-		;
+		FLAG_TIM1_OC4;
 	}
 }
 

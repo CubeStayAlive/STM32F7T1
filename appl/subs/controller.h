@@ -8,25 +8,30 @@
 #ifndef SUBS_CONTROLLER_H_
 #define SUBS_CONTROLLER_H_
 
+//typedef double maths;
+typedef float maths;
+
 typedef struct
 {
-	double pwm_resolution;
-	doublle rot;
+	maths pwm_resolution;
+	maths rot;
+	maths pf;
+	maths po;
 } Controller_para;
 
 typedef struct
 {
-	double phi;
+	maths phi;
 } Controller_in;
 
 typedef struct
 {
-	double l1;
-	double l2;
-	double l3;
+	maths l1;
+	maths l2;
+	maths l3;
 } Controller_out;
 
-void Controller_init(Controller_para *para);
+void Controller_init(Controller_para *para, Controller_in *in);
 void Controller_calc(Controller_in *in, Controller_out *out);
 
 #endif /* SUBS_CONTROLLER_H_ */
