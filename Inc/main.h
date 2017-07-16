@@ -56,10 +56,14 @@
 
 /* Private define ------------------------------------------------------------*/
 
-#define FLAG_A_Pin GPIO_PIN_5
-#define FLAG_A_GPIO_Port GPIOE
-#define FLAG_B_Pin GPIO_PIN_6
+#define FLAG_D_Pin GPIO_PIN_3
+#define FLAG_D_GPIO_Port GPIOE
+#define FLAG_C_Pin GPIO_PIN_4
+#define FLAG_C_GPIO_Port GPIOE
+#define FLAG_B_Pin GPIO_PIN_5
 #define FLAG_B_GPIO_Port GPIOE
+#define FLAG_A_Pin GPIO_PIN_6
+#define FLAG_A_GPIO_Port GPIOE
 #define USER_Btn_Pin GPIO_PIN_13
 #define USER_Btn_GPIO_Port GPIOC
 #define MCO_Pin GPIO_PIN_0

@@ -83,7 +83,7 @@ void MX_GPIO_Init(void)
   __HAL_RCC_GPIOG_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOE, FLAG_A_Pin|FLAG_B_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOE, FLAG_D_Pin|FLAG_C_Pin|FLAG_B_Pin|FLAG_A_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0|LD3_Pin|LD2_Pin, GPIO_PIN_RESET);
@@ -91,8 +91,8 @@ void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(USB_PowerSwitchOn_GPIO_Port, USB_PowerSwitchOn_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : PEPin PEPin */
-  GPIO_InitStruct.Pin = FLAG_A_Pin|FLAG_B_Pin;
+  /*Configure GPIO pins : PEPin PEPin PEPin PEPin */
+  GPIO_InitStruct.Pin = FLAG_D_Pin|FLAG_C_Pin|FLAG_B_Pin|FLAG_A_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_MEDIUM;

@@ -71,7 +71,7 @@ void ThreadDFSDM(void const * argument)
 		filter2_reg = HAL_DFSDM_FilterGetRegularValue( &hdfsdm1_filter2, &channel );
 		sign_extend(&filter2_reg);
 
-		filter3_awd = HAL_DFSDM_ChannelGetAwdValue(&hdfsdm1_channel3);
+		filter3_awd = HAL_DFSDM_ChannelGetAwdValue(&hdfsdm1_channel4);
 		filter3_reg = HAL_DFSDM_FilterGetRegularValue( &hdfsdm1_filter3, &channel );
 		sign_extend(&filter3_reg);
 

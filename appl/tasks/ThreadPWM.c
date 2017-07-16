@@ -68,6 +68,10 @@ void interrupt_tim1_update(TIM_HandleTypeDef *htim)
 	FLAG_TIM1_UPDATE;
 }
 
+Controller_para cpara;
+Controller_in cin;
+Controller_out cout;
+
 typedef double mt;
 mt phi = 0.0;
 mt rot = .0001;
