@@ -13,7 +13,7 @@ static Controller_para *hpara;
 void Controller_init(Controller_para *para, Controller_in *in)
 {
 	hpara = para; // copy only pointer ???
-	para->rot = .0001;
+	//para->rot = .0001;
 	in->phi = 0.0f;
 
 	para -> pf = para-> pwm_resolution * 0.5;

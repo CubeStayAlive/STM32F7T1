@@ -13,11 +13,24 @@
 #include "subs/flag.h"
 #include "intersect/event.h"
 #include "subs/controller.h"
+#include <math.h>
+
+Controller_para cpara;
+Controller_in cin;
+Controller_out cout;
+
+
+#define ROT_FREQ 0.2
 
 void ThreadPWM(void const * argument)
 {
 	UNUSED(argument);
 	HAL_StatusTypeDef result;
+
+	cpara.pwm_resolution = 5000;
+	cpara.rot = ROT_FREQ / 10000.0 / 2.0 * M_PI;
+
+	Controller_init(&cpara, &cin);
 
 	result = HAL_TIM_Base_Start_IT(&htim1);
 	if (result != HAL_OK)
@@ -37,7 +50,19 @@ void ThreadPWM(void const * argument)
 		Error_Handler();
 	}
 
+	result = HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_1);
+	if (result != HAL_OK)
+	{
+		Error_Handler();
+	}
+
 	result = HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
+	if (result != HAL_OK)
+	{
+		Error_Handler();
+	}
+
+	result = HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_2);
 	if (result != HAL_OK)
 	{
 		Error_Handler();
@@ -48,6 +73,13 @@ void ThreadPWM(void const * argument)
 	{
 		Error_Handler();
 	}
+
+	result = HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_3);
+	if (result != HAL_OK)
+	{
+		Error_Handler();
+	}
+
 
 	result = HAL_TIM_OC_Start_IT(&htim1, TIM_CHANNEL_4);
 	if (result != HAL_OK)
