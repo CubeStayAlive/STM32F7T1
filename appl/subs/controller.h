@@ -11,6 +11,16 @@
 //typedef double maths;
 typedef float maths;
 
+#if maths == float
+#define VSIN sinf
+#define VSINCOS sincosf
+#endif
+
+//#if maths == double
+//#define VSIN sin
+//#endif
+
+
 typedef struct
 {
 	maths pwm_resolution;
