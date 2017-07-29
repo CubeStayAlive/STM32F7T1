@@ -11,6 +11,7 @@
 #include "task.h"
 #include "main.h"
 #include "tim.h"
+#include "ThreadDFSDM.h"
 
 // dis optimized out
 volatile static int16_t filter0_awd;
@@ -79,3 +80,12 @@ void ThreadDFSDM(void const * argument)
 	}
 }
 
+void ReadCurrents(void)
+{
+	uint32_t channel;
+
+	HAL_DFSDM_FilterGetRegularValue( &hdfsdm1_filter0, &channel );
+	HAL_DFSDM_FilterGetRegularValue( &hdfsdm1_filter1, &channel );
+	HAL_DFSDM_FilterGetRegularValue( &hdfsdm1_filter2, &channel );
+	HAL_DFSDM_FilterGetRegularValue( &hdfsdm1_filter3, &channel );
+}

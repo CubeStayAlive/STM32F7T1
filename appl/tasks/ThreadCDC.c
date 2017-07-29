@@ -30,7 +30,7 @@ static struct
 
 void ThreadCDC(void const * argument)
 {
-	bool step2 = true;
+	//bool step2 = true;
 
 	UNUSED(argument);
 

@@ -71,7 +71,7 @@ void MX_DFSDM1_Init(void)
 
   hdfsdm1_filter0.Instance = DFSDM1_Filter0;
   hdfsdm1_filter0.Init.RegularParam.Trigger = DFSDM_FILTER_SW_TRIGGER;
-  hdfsdm1_filter0.Init.RegularParam.FastMode = DISABLE;
+  hdfsdm1_filter0.Init.RegularParam.FastMode = ENABLE;
   hdfsdm1_filter0.Init.RegularParam.DmaMode = DISABLE;
   hdfsdm1_filter0.Init.FilterParam.SincOrder = DFSDM_FILTER_SINC3_ORDER;
   hdfsdm1_filter0.Init.FilterParam.Oversampling = 32;
@@ -80,7 +80,7 @@ void MX_DFSDM1_Init(void)
 
   hdfsdm1_filter1.Instance = DFSDM1_Filter1;
   hdfsdm1_filter1.Init.RegularParam.Trigger = DFSDM_FILTER_SW_TRIGGER;
-  hdfsdm1_filter1.Init.RegularParam.FastMode = DISABLE;
+  hdfsdm1_filter1.Init.RegularParam.FastMode = ENABLE;
   hdfsdm1_filter1.Init.RegularParam.DmaMode = DISABLE;
   hdfsdm1_filter1.Init.FilterParam.SincOrder = DFSDM_FILTER_SINC3_ORDER;
   hdfsdm1_filter1.Init.FilterParam.Oversampling = 32;
@@ -89,7 +89,7 @@ void MX_DFSDM1_Init(void)
 
   hdfsdm1_filter2.Instance = DFSDM1_Filter2;
   hdfsdm1_filter2.Init.RegularParam.Trigger = DFSDM_FILTER_SW_TRIGGER;
-  hdfsdm1_filter2.Init.RegularParam.FastMode = DISABLE;
+  hdfsdm1_filter2.Init.RegularParam.FastMode = ENABLE;
   hdfsdm1_filter2.Init.RegularParam.DmaMode = DISABLE;
   hdfsdm1_filter2.Init.FilterParam.SincOrder = DFSDM_FILTER_SINC3_ORDER;
   hdfsdm1_filter2.Init.FilterParam.Oversampling = 32;
@@ -98,7 +98,7 @@ void MX_DFSDM1_Init(void)
 
   hdfsdm1_filter3.Instance = DFSDM1_Filter3;
   hdfsdm1_filter3.Init.RegularParam.Trigger = DFSDM_FILTER_SW_TRIGGER;
-  hdfsdm1_filter3.Init.RegularParam.FastMode = DISABLE;
+  hdfsdm1_filter3.Init.RegularParam.FastMode = ENABLE;
   hdfsdm1_filter3.Init.RegularParam.DmaMode = DISABLE;
   hdfsdm1_filter3.Init.FilterParam.SincOrder = DFSDM_FILTER_SINC3_ORDER;
   hdfsdm1_filter3.Init.FilterParam.Oversampling = 32;
@@ -168,8 +168,8 @@ void MX_DFSDM1_Init(void)
   hdfsdm1_channel4.Init.Input.Pins = DFSDM_CHANNEL_SAME_CHANNEL_PINS;
   hdfsdm1_channel4.Init.SerialInterface.Type = DFSDM_CHANNEL_SPI_RISING;
   hdfsdm1_channel4.Init.SerialInterface.SpiClock = DFSDM_CHANNEL_SPI_CLOCK_INTERNAL;
-  hdfsdm1_channel4.Init.Awd.FilterOrder = DFSDM_CHANNEL_FASTSINC_ORDER;
-  hdfsdm1_channel4.Init.Awd.Oversampling = 1;
+  hdfsdm1_channel4.Init.Awd.FilterOrder = DFSDM_CHANNEL_SINC3_ORDER;
+  hdfsdm1_channel4.Init.Awd.Oversampling = 32;
   hdfsdm1_channel4.Init.Offset = 0;
   hdfsdm1_channel4.Init.RightBitShift = 0x00;
   if (HAL_DFSDM_ChannelInit(&hdfsdm1_channel4) != HAL_OK)
@@ -183,7 +183,7 @@ void MX_DFSDM1_Init(void)
 
   HAL_DFSDM_FilterConfigRegChannel(&hdfsdm1_filter2, DFSDM_CHANNEL_2, DFSDM_CONTINUOUS_CONV_ON);
 
-  HAL_DFSDM_FilterConfigRegChannel(&hdfsdm1_filter3, DFSDM_CHANNEL_3, DFSDM_CONTINUOUS_CONV_ON);
+  HAL_DFSDM_FilterConfigRegChannel(&hdfsdm1_filter3, DFSDM_CHANNEL_4, DFSDM_CONTINUOUS_CONV_ON);
 
 }
 

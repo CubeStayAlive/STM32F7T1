@@ -15,12 +15,14 @@
 #include "subs/controller.h"
 #include <math.h>
 
+#include "ThreadDFSDM.h"
+
 Controller_para cpara;
 Controller_in cin;
 Controller_out cout;
 
 
-#define ROT_FREQ 0.2
+#define ROT_FREQ 1.0
 
 void ThreadPWM(void const * argument)
 {
@@ -128,7 +130,9 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	if (htim->Instance == TIM1)
 	{
-		FLAG_TIM1_OC4;
+		FLAG_DFSDM_READ_START;
+		ReadCurrents();
+		FLAG_DFSDM_READ_END;
 	}
 }
 
