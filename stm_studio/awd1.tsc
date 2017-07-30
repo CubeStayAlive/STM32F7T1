@@ -1,5 +1,5 @@
 #STM Touch Studio user settings - do not edit
-#Sat Jul 29 22:44:54 CEST 2017
+#Sun Jul 30 08:44:44 CEST 2017
 ExprVariable.Col0ModelIdx=0
 ExprVariable.Col0Width=15
 ExprVariable.Col1ModelIdx=1
@@ -11,7 +11,7 @@ ExprVariable.Col3Width=155
 ExprVariable.Col4ModelIdx=4
 ExprVariable.Col4Width=40
 ExprVariable.Number=0
-GdbVar.ExecDate=1501360586817
+GdbVar.ExecDate=1501396446472
 GdbVar.LastExecRelative=..\\Debug\\STM32F7T1.elf
 GdbVar.Version=1
 GeneralPurpose.HorizontalSplit=541
@@ -99,7 +99,7 @@ TouchPointViewer.YRange.Low=-32768.0
 TouchPointViewer.YRange.Up=32768.0
 VarViewer.DisplayAllMode=Curve
 VarViewer.Number=2
-VarViewer.SelectedTab=1
+VarViewer.SelectedTab=0
 VarViewer.ShowIndex=false
 VarViewer.Version=4
 VarViewer1.DisplayMode=Curve

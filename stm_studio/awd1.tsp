@@ -1,5 +1,5 @@
 #STM Studio project file - do not edit
-#Sat Jul 29 22:17:19 CEST 2017
+#Sun Jul 30 08:44:44 CEST 2017
 Main.Version=1
 Root.Child0.IsActive=true
 Root.Child0.Name=awd1
