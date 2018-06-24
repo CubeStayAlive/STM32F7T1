@@ -81,12 +81,21 @@ void MX_FREERTOS_Init(void);
 
 /* USER CODE END 0 */
 
+extern uint32_t g_pfnVectors;
+extern uint32_t _vector_table_start;
+//extern uint32_t isr_vector;
+
+uint32_t readback;
+
 int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-
-  /* USER CODE END 1 */
+	//SCB->VTOR = isr_vector;
+	SCB->VTOR = _vector_table_start;
+	SCB->VTOR = 0X08010000;
+	readback = SCB->VTOR;
+	/* USER CODE END 1 */
 
   /* Enable I-Cache-------------------------------------------------------------*/
   SCB_EnableICache();
